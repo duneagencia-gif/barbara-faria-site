@@ -323,8 +323,8 @@ footer .pend { color: var(--beige); background: rgba(228,199,172,.12); border-co
 @media (min-width: 761px) { .float { display: none; } }
 
 /* Formulário de pré-agendamento */
-dialog#agendar { border: 0; padding: 0; width: min(560px, calc(100% - 32px)); max-height: calc(100% - 32px); border-radius: 22px; background: var(--off); color: var(--brown); box-shadow: 0 30px 80px -30px rgba(79,58,46,.6); }
-dialog#agendar::backdrop { background: rgba(79,58,46,.45); backdrop-filter: blur(2px); }
+dialog#agendar, dialog#depo { border: 0; padding: 0; width: min(560px, calc(100% - 32px)); max-height: calc(100% - 32px); border-radius: 22px; background: var(--off); color: var(--brown); box-shadow: 0 30px 80px -30px rgba(79,58,46,.6); }
+dialog#agendar::backdrop, dialog#depo::backdrop { background: rgba(79,58,46,.45); backdrop-filter: blur(2px); }
 dialog[open] { animation: rise .3s ease-out both; }
 .dlg { display: flex; flex-direction: column; max-height: calc(100vh - 32px); }
 .dlg-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 1.4rem 1.5rem 1rem; border-bottom: 1px solid var(--line); }
@@ -337,9 +337,9 @@ dialog[open] { animation: rise .3s ease-out both; }
 .field, fieldset { display: flex; flex-direction: column; gap: .45rem; border: 0; margin: 0; padding: 0; min-width: 0; }
 .field > label, fieldset > legend { font-size: .84rem; font-weight: 500; color: var(--brown-deep); padding: 0; margin-bottom: .1rem; }
 .opt { font-weight: 300; color: var(--brown-soft); }
-input[type=text], select { font: inherit; font-size: .95rem; font-weight: 400; color: var(--brown-deep); background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: .78rem 1rem; width: 100%; min-width: 0; }
+input[type=text], select, textarea { font: inherit; font-size: .95rem; font-weight: 400; color: var(--brown-deep); background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: .78rem 1rem; width: 100%; min-width: 0; }
 select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--brown) 50%), linear-gradient(135deg, var(--brown) 50%, transparent 50%); background-position: calc(100% - 20px) 52%, calc(100% - 15px) 52%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 2.4rem; }
-input[type=text]:focus, select:focus { outline: none; border-color: var(--brown); box-shadow: 0 0 0 3px rgba(228,199,172,.7); }
+input[type=text]:focus, select:focus, textarea:focus { outline: none; border-color: var(--brown); box-shadow: 0 0 0 3px rgba(228,199,172,.7); }
 .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
 .chips input { position: absolute; opacity: 0; pointer-events: none; }
 .chips label { font-size: .86rem; padding: .5rem .95rem; border: 1px solid var(--line); border-radius: 999px; cursor: pointer; background: var(--paper); transition: background .2s, border-color .2s; }
@@ -350,10 +350,34 @@ input[type=text]:focus, select:focus { outline: none; border-color: var(--brown)
 .msg-label { font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--brown-soft); font-weight: 500; }
 .fine { font-size: .78rem; color: var(--brown-soft); line-height: 1.5; }
 @media (max-width: 560px) {
-  dialog#agendar { width: 100%; max-width: 100%; max-height: 92%; margin: auto 0 0; border-radius: 22px 22px 0 0; }
+  dialog#agendar, dialog#depo { width: 100%; max-width: 100%; max-height: 92%; margin: auto 0 0; border-radius: 22px 22px 0 0; }
   .dlg { max-height: 92vh; }
   .dlg-foot { padding-bottom: calc(1.3rem + env(safe-area-inset-bottom, 0px)); }
 }
+
+/* Depoimentos */
+.depo-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.2rem 2rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.depo-head .section-head { margin-bottom: 0; }
+.depo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 1rem; align-items: start; }
+.depo { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 1.4rem 1.4rem 1.2rem; display: flex; flex-direction: column; gap: .8rem; margin: 0; }
+.depo .stars { color: #C59A6E; letter-spacing: .12em; font-size: .95rem; line-height: 1; }
+.depo blockquote { border: 0; padding: 0; margin: 0; font-family: var(--body); font-style: normal; font-size: .95rem; line-height: 1.65; color: var(--brown-deep); white-space: pre-line; overflow-wrap: anywhere; }
+.depo figcaption { font-size: .82rem; color: var(--brown-soft); }
+.depo figcaption b { font-weight: 500; color: var(--brown); }
+.depo-empty { background: var(--paper); border: 1px dashed rgba(118,89,72,.35); border-radius: 20px; padding: 1.6rem; text-align: center; color: var(--brown-soft); }
+.depo-more { margin-top: 1.4rem; display: flex; justify-content: center; }
+textarea { resize: vertical; min-height: 130px; line-height: 1.55; }
+.stars-in { display: flex; gap: .25rem; }
+.stars-in input { position: absolute; opacity: 0; pointer-events: none; }
+.stars-in label { font-size: 1.7rem; line-height: 1; color: rgba(118,89,72,.28); cursor: pointer; padding: .1rem; }
+.stars-in label.on { color: #C59A6E; }
+.stars-in input:focus-visible + label { outline: 2px solid var(--brown); outline-offset: 2px; border-radius: 6px; }
+.check { display: flex; gap: .6rem; align-items: flex-start; font-size: .84rem; color: var(--brown-deep); cursor: pointer; }
+.check input { margin-top: .2rem; accent-color: var(--brown); width: 18px; height: 18px; flex: none; }
+.hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+#depo-foot[hidden] { display: none; }
+.depo-ok { text-align: center; display: flex; flex-direction: column; gap: .6rem; align-items: center; padding: 1rem 0; }
+.depo-ok b { font-family: var(--display); font-style: italic; font-weight: 400; font-size: 1.5rem; color: var(--brown-deep); }
 </style>
 </head>
 <body>
@@ -597,6 +621,21 @@ input[type=text]:focus, select:focus { outline: none; border-color: var(--brown)
     </div>
   </section>
 
+  <section class="depo-section" id="depoimentos" aria-labelledby="dp-title">
+    <div class="wrap">
+      <div class="depo-head">
+        <div class="section-head">
+          <p class="eyebrow">Depoimentos</p>
+          <h2 id="dp-title">Quem já passou por aqui</h2>
+          <p>Cada atendimento é uma história. Se você já foi atendido por mim, vou adorar ler a sua.</p>
+        </div>
+        <button type="button" class="btn btn-ghost" id="depo-open">Deixar meu depoimento</button>
+      </div>
+      <div class="depo-grid" id="depo-list" aria-live="polite"></div>
+      <div class="depo-more" id="depo-more" hidden><button type="button" class="btn btn-ghost" id="depo-more-btn">Ver mais depoimentos</button></div>
+    </div>
+  </section>
+
   <section id="duvidas" aria-labelledby="dv-title">
     <div class="wrap">
       <div class="section-head">
@@ -672,6 +711,53 @@ input[type=text]:focus, select:focus { outline: none; border-color: var(--brown)
 </footer>
 
 <button type="button" class="btn btn-primary float js-book" aria-label="Agendar pelo WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg>Agendar</button>
+
+<dialog id="depo" aria-labelledby="dp-dlg-title">
+  <form class="dlg" id="form-depo" novalidate>
+    <div class="dlg-head">
+      <div>
+        <h2 id="dp-dlg-title">Deixe seu depoimento</h2>
+        <p>Ele aparece aqui no site assim que você enviar.</p>
+      </div>
+      <button type="button" class="x" id="depo-close" aria-label="Fechar">×</button>
+    </div>
+    <div class="dlg-body" id="depo-body">
+      <div class="field">
+        <label for="d-nome">Seu nome</label>
+        <input type="text" id="d-nome" name="nome" autocomplete="given-name" placeholder="Ex.: Ana S." maxlength="60">
+        <span class="fine">Pode ser só o primeiro nome, ou o nome e a inicial do sobrenome.</span>
+        <span class="err" id="d-err-nome" hidden>Escreva seu nome.</span>
+      </div>
+      <div class="field">
+        <label for="d-cidade">Cidade <span class="opt">(opcional)</span></label>
+        <input type="text" id="d-cidade" name="cidade" autocomplete="address-level2" placeholder="Ex.: Betim" maxlength="60">
+      </div>
+      <fieldset>
+        <legend>Sua nota <span class="opt">(opcional)</span></legend>
+        <div class="stars-in" id="d-stars">
+          <input type="radio" name="nota" id="d-n1" value="1"><label for="d-n1" aria-label="1 estrela">★</label>
+          <input type="radio" name="nota" id="d-n2" value="2"><label for="d-n2" aria-label="2 estrelas">★</label>
+          <input type="radio" name="nota" id="d-n3" value="3"><label for="d-n3" aria-label="3 estrelas">★</label>
+          <input type="radio" name="nota" id="d-n4" value="4"><label for="d-n4" aria-label="4 estrelas">★</label>
+          <input type="radio" name="nota" id="d-n5" value="5"><label for="d-n5" aria-label="5 estrelas">★</label>
+        </div>
+      </fieldset>
+      <div class="field">
+        <label for="d-texto">Como foi o seu atendimento?</label>
+        <textarea id="d-texto" name="texto" maxlength="600" placeholder="Conte como você se sentiu, o que achou da explicação, do cuidado…"></textarea>
+        <span class="fine"><span id="d-count">0</span>/600 · Não precisa contar detalhes de saúde nem resultados de exames.</span>
+        <span class="err" id="d-err-texto" hidden>Escreva pelo menos uma frase.</span>
+      </div>
+      <div class="hp" aria-hidden="true"><label for="d-site">Não preencha</label><input type="text" id="d-site" name="site" tabindex="-1" autocomplete="off"></div>
+      <label class="check"><input type="checkbox" id="d-ok"> <span>Autorizo publicar este depoimento, com o nome que informei, no site da Bárbara Faria.</span></label>
+      <span class="err" id="d-err-ok" hidden>Marque a autorização para publicar.</span>
+      <span class="err" id="d-err-envio" hidden></span>
+    </div>
+    <div class="dlg-foot" id="depo-foot">
+      <button type="submit" class="btn btn-primary" id="d-enviar">Publicar depoimento</button>
+    </div>
+  </form>
+</dialog>
 
 <dialog id="agendar" aria-labelledby="dlg-title">
   <form class="dlg" id="form-agendar" method="dialog" novalidate>
@@ -791,6 +877,7 @@ const UNIDADES = [
 /* ════════════════════════════════════════════════════════════════ */
 
 const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const pend = (t) => `<span class="pend only-preview">${esc(t)}</span>`;
 const fmtPhone = (d) => { const n = d.replace(/^55/, ""); return n.length === 11 ? `(${n.slice(0,2)}) ${n.slice(2,7)}-${n.slice(7)}` : n; };
@@ -976,6 +1063,88 @@ window.addEventListener("scroll", onScroll, { passive: true });
 onScroll();
 
 applyMode();
+
+/* Depoimentos: lidos e gravados no Supabase (tabela bf_depoimentos) */
+const DEPO_API = "https://rppgpmddpuvcrbvljfms.supabase.co/rest/v1/bf_depoimentos";
+const DEPO_KEY = "sb_publishable_wARnoXPMSBWvVkII-bZbtw_GCb4OaE6";
+const DEPO_PAGE = 6;
+let depoItens = [], depoMostrando = DEPO_PAGE;
+const depoHeaders = { apikey: DEPO_KEY, Authorization: "Bearer " + DEPO_KEY };
+function depoData(iso) {
+  try { return new Date(iso).toLocaleDateString("pt-BR", { month: "long", year: "numeric" }); } catch (e) { return ""; }
+}
+function renderDepos() {
+  const list = $("#depo-list");
+  if (!depoItens.length) {
+    list.innerHTML = `<p class="depo-empty">Ainda não há depoimentos por aqui. Que tal ser a primeira pessoa a contar como foi?</p>`;
+    $("#depo-more").hidden = true; return;
+  }
+  list.innerHTML = depoItens.slice(0, depoMostrando).map((d) => `
+    <figure class="depo">
+      ${d.nota ? `<span class="stars" role="img" aria-label="Nota ${d.nota} de 5">${"★".repeat(d.nota)}${"☆".repeat(5 - d.nota)}</span>` : ""}
+      <blockquote>${esc(d.texto)}</blockquote>
+      <figcaption><b>${esc(d.nome)}</b>${d.cidade ? " · " + esc(d.cidade) : ""}${d.criado_em ? " · " + esc(depoData(d.criado_em)) : ""}</figcaption>
+    </figure>`).join("");
+  $("#depo-more").hidden = depoItens.length <= depoMostrando;
+}
+async function loadDepos() {
+  try {
+    const r = await fetch(DEPO_API + "?select=nome,cidade,texto,nota,criado_em&order=criado_em.desc&limit=60", { headers: depoHeaders });
+    if (!r.ok) throw new Error(r.status);
+    depoItens = await r.json();
+  } catch (e) { depoItens = []; }
+  renderDepos();
+}
+$("#depo-more-btn").addEventListener("click", () => { depoMostrando += DEPO_PAGE; renderDepos(); });
+const depoDlg = $("#depo");
+let depoForm = null;
+function openDepo() {
+  if (!depoForm) depoForm = $("#depo-body").innerHTML;
+  else { $("#depo-body").innerHTML = depoForm; $("#depo-foot").hidden = false; bindDepoForm(); }
+  if (typeof depoDlg.showModal === "function") depoDlg.showModal(); else depoDlg.setAttribute("open", "");
+  setTimeout(() => $("#d-nome") && $("#d-nome").focus(), 60);
+}
+function paintStars() {
+  const v = +(($("#d-stars input:checked") || {}).value || 0);
+  $$("#d-stars label").forEach((l, i) => l.classList.toggle("on", i < v));
+}
+function bindDepoForm() {
+  $$("#d-stars input").forEach((i) => i.addEventListener("change", paintStars));
+  $("#d-nome").addEventListener("input", () => { $("#d-err-nome").hidden = true; });
+  $("#d-texto").addEventListener("input", () => { $("#d-err-texto").hidden = true; });
+  $("#d-ok").addEventListener("change", () => { $("#d-err-ok").hidden = true; });
+  $("#d-texto").addEventListener("input", (e) => { $("#d-count").textContent = e.target.value.length; });
+}
+bindDepoForm();
+$("#depo-open").addEventListener("click", openDepo);
+$("#depo-close").addEventListener("click", () => depoDlg.close());
+depoDlg.addEventListener("click", (e) => { if (e.target === depoDlg) depoDlg.close(); });
+$("#form-depo").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const nome = $("#d-nome").value.trim(), cidade = $("#d-cidade").value.trim(), texto = $("#d-texto").value.trim();
+  const nota = +(($("#d-stars input:checked") || {}).value || 0) || null;
+  const temLink = /(https?:\/\/|www\.)/i.test(texto + " " + nome);
+  $("#d-err-nome").hidden = nome.length >= 2;
+  $("#d-err-texto").hidden = texto.length >= 10 && !temLink;
+  if (temLink) $("#d-err-texto").textContent = "Por favor, não coloque links no depoimento.";
+  else $("#d-err-texto").textContent = "Escreva pelo menos uma frase.";
+  $("#d-err-ok").hidden = $("#d-ok").checked;
+  const errEnvio = $("#d-err-envio"); errEnvio.hidden = true;
+  if (nome.length < 2 || texto.length < 10 || temLink || !$("#d-ok").checked) return;
+  if ($("#d-site").value) { depoDlg.close(); return; }
+  const btn = $("#d-enviar"); btn.disabled = true; btn.textContent = "Enviando…";
+  try {
+    const r = await fetch(DEPO_API, { method: "POST", headers: { ...depoHeaders, "Content-Type": "application/json", Prefer: "return=minimal" },
+      body: JSON.stringify({ nome, cidade: cidade || null, texto, nota }) });
+    if (!r.ok) throw new Error(r.status);
+    $("#depo-body").innerHTML = `<div class="depo-ok"><b>Obrigada pelo carinho!</b><p>Seu depoimento já está publicado no site.</p></div>`;
+    $("#depo-foot").hidden = true;
+    depoMostrando = DEPO_PAGE; await loadDepos();
+  } catch (err) {
+    errEnvio.textContent = "Não consegui enviar agora. Tente de novo em alguns minutos."; errEnvio.hidden = false;
+  } finally { btn.disabled = false; btn.textContent = "Publicar depoimento"; }
+});
+loadDepos();
 </script>
 
 </body>
