@@ -1145,6 +1145,16 @@ $("#form-depo").addEventListener("submit", async (e) => {
   } finally { btn.disabled = false; btn.textContent = "Publicar depoimento"; }
 });
 loadDepos();
+/* Link direto para deixar depoimento: barbarafariafono.com.br/#deixar-depoimento */
+function depoPorLink() {
+  if (location.hash === "#deixar-depoimento") {
+    const sec = $("#depoimentos");
+    if (sec) sec.scrollIntoView();
+    openDepo();
+  }
+}
+window.addEventListener("hashchange", depoPorLink);
+depoPorLink();
 </script>
 
 </body>
