@@ -1076,7 +1076,7 @@ function depoData(iso) {
 function renderDepos() {
   const list = $("#depo-list");
   if (!depoItens.length) {
-    list.innerHTML = `<p class="depo-empty">Ainda não há depoimentos por aqui. Que tal ser a primeira pessoa a contar como foi?</p>`;
+    list.innerHTML = "";
     $("#depo-more").hidden = true; return;
   }
   list.innerHTML = depoItens.slice(0, depoMostrando).map((d) => `
