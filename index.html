@@ -186,7 +186,11 @@ section { padding-block: clamp(3.5rem, 8vw, 6.2rem); }
 .about-copy { display: flex; flex-direction: column; gap: 1.15rem; min-width: 0; }
 .about-copy p { max-width: 38rem; }
 blockquote { margin: .4rem 0 0; padding: 0 0 0 1.3rem; border-left: 2px solid var(--beige); font-family: var(--display); font-style: italic; font-size: var(--step-1); line-height: 1.4; color: var(--brown-deep); max-width: 34rem; }
-.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: .6rem; padding-top: 1.4rem; border-top: 1px solid var(--line); }
+.areas { display: flex; flex-direction: column; gap: .6rem; }
+.areas-title { font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--brown); font-weight: 500; }
+.areas ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+.areas li { padding: .45rem .95rem; border-radius: 999px; background: var(--beige); color: var(--brown-deep); font-size: .86rem; font-weight: 500; }
+.facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: .6rem; padding-top: 1.4rem; border-top: 1px solid var(--line); }
 .facts div { display: flex; flex-direction: column; gap: .1rem; font-size: .84rem; min-width: 0; }
 .facts b { font-family: var(--display); font-style: italic; font-weight: 400; font-size: 1.6rem; color: var(--brown-deep); line-height: 1.15; }
 .crfa { font-size: .85rem; color: var(--brown-soft); }
@@ -394,7 +398,7 @@ input[type=text]:focus, select:focus { outline: none; border-color: var(--brown)
     <nav class="menu" aria-label="Seções">
       <a href="#sobre">Sobre</a>
       <a href="#atendimentos">Atendimentos</a>
-      <a href="#onde-atende">Onde atende</a>
+      <a href="#onde-atende">Onde atendo</a>
       <a href="#duvidas">Dúvidas</a>
     </nav>
     <div class="bar-actions">
@@ -495,12 +499,22 @@ input[type=text]:focus, select:focus { outline: none; border-color: var(--brown)
         <p class="eyebrow">Quem vai te atender</p>
         <h2 id="sobre-title">Prazer, eu sou a Bárbara.</h2>
         <p>Me formei em Fonoaudiologia pela UFMG e me especializei em Audiologia. Há mais de 15 anos trabalho com diagnóstico auditivo, atendendo de bebês a pessoas idosas.</p>
+        <p>Ao longo desses anos, fiz dezenas de cursos e congressos, numa capacitação intensa em Audiologia. E sigo estudando: acabei de começar a pós-graduação em Desenvolvimento Infantil.</p>
+        <div class="areas">
+          <p class="areas-title">Áreas de atuação</p>
+          <ul>
+            <li>Audiologia</li>
+            <li>Processamento auditivo central</li>
+            <li>Linguagem infantil</li>
+          </ul>
+        </div>
         <p>Com o tempo, aprendi que um bom exame começa por uma boa conversa. Muita gente chega preocupada, ou adiou a avaliação por anos. Por isso, escuto com calma, explico o que vamos fazer antes de começar e só encerro quando você entende o seu resultado e sabe qual é o próximo passo.</p>
         <blockquote>"Quando a pessoa entende o que está acontecendo com a própria audição, fica muito mais leve decidir o que fazer."</blockquote>
         <div class="facts">
           <div><b>UFMG</b>Graduação em Fonoaudiologia</div>
           <div><b>Audiologia</b>Especialização</div>
           <div><b>+15 anos</b>em diagnóstico auditivo</div>
+          <div><b>Dezenas</b>de cursos e congressos</div>
         </div>
         <p class="crfa" id="crfa-line"></p>
       </div>
