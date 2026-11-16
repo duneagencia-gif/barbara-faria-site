@@ -754,7 +754,7 @@ textarea { resize: vertical; min-height: 130px; line-height: 1.55; }
       <span class="err" id="d-err-envio" hidden></span>
     </div>
     <div class="dlg-foot" id="depo-foot">
-      <button type="submit" class="btn btn-primary" id="d-enviar">Publicar depoimento</button>
+      <button type="submit" class="btn btn-primary" id="d-enviar">Enviar depoimento</button>
     </div>
   </form>
 </dialog>
@@ -1089,7 +1089,7 @@ function renderDepos() {
 }
 async function loadDepos() {
   try {
-    const r = await fetch(DEPO_API + "?select=nome,cidade,texto,nota,criado_em&order=criado_em.desc&limit=60", { headers: depoHeaders });
+    const r = await fetch(DEPO_API + "?select=nome,cidade,texto,nota,criado_em&aprovado=is.true&oculto=is.false&order=criado_em.desc&limit=60", { headers: depoHeaders });
     if (!r.ok) throw new Error(r.status);
     depoItens = await r.json();
   } catch (e) { depoItens = []; }
@@ -1137,12 +1137,11 @@ $("#form-depo").addEventListener("submit", async (e) => {
     const r = await fetch(DEPO_API, { method: "POST", headers: { ...depoHeaders, "Content-Type": "application/json", Prefer: "return=minimal" },
       body: JSON.stringify({ nome, cidade: cidade || null, texto, nota }) });
     if (!r.ok) throw new Error(r.status);
-    $("#depo-body").innerHTML = `<div class="depo-ok"><b>Obrigada pelo carinho!</b><p>Seu depoimento já está publicado no site.</p></div>`;
+    $("#depo-body").innerHTML = `<div class="depo-ok"><b>Obrigada pelo carinho!</b><p>Seu depoimento foi enviado e aparece no site assim que a Bárbara aprovar.</p></div>`;
     $("#depo-foot").hidden = true;
-    depoMostrando = DEPO_PAGE; await loadDepos();
-  } catch (err) {
+      } catch (err) {
     errEnvio.textContent = "Não consegui enviar agora. Tente de novo em alguns minutos."; errEnvio.hidden = false;
-  } finally { btn.disabled = false; btn.textContent = "Publicar depoimento"; }
+  } finally { btn.disabled = false; btn.textContent = "Enviar depoimento"; }
 });
 loadDepos();
 /* Link direto para deixar depoimento: barbarafariafono.com.br/#deixar-depoimento */
@@ -1157,5 +1156,29 @@ window.addEventListener("hashchange", depoPorLink);
 depoPorLink();
 </script>
 
+<script>
+/* Contagem de visitas do site (tabela bf_acessos no Supabase; aparece no painel /admin) */
+(function () {
+  var URL = "https://rppgpmddpuvcrbvljfms.supabase.co/rest/v1/bf_acessos", KEY = "sb_publishable_wARnoXPMSBWvVkII-bZbtw_GCb4OaE6";
+  var naoContar = false, vis = null;
+  try { naoContar = localStorage.getItem("bf_nao_contar") === "1"; vis = localStorage.getItem("bf_vis");
+    if (!vis) { vis = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem("bf_vis", vis); } } catch (e) {}
+  if (naoContar || /bot|crawl|spider|preview|lighthouse|headless/i.test(navigator.userAgent)) { window.bfConta = function () {}; return; }
+  var ua = navigator.userAgent, disp = /iPad|Tablet/i.test(ua) ? "tablet" : /Mobi|Android|iPhone/i.test(ua) ? "celular" : "computador";
+  var origem = null;
+  try { var q = new URLSearchParams(location.search).get("utm_source"); if (q) origem = q.slice(0, 60);
+    else if (document.referrer) { var h = new URL(document.referrer).hostname.replace(/^www\./, ""); if (h !== location.hostname.replace(/^www\./, "")) origem = h; } } catch (e) {}
+  window.bfConta = function (pagina) {
+    try { fetch(URL, { method: "POST", keepalive: true, headers: { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json", Prefer: "return=minimal" },
+      body: JSON.stringify({ pagina: String(pagina).slice(0, 120), origem: origem, dispositivo: disp, visitante: vis }) }); } catch (e) {}
+  };
+  var p = location.pathname.replace(/\.html$/, "").replace(/\/index$/, "/") || "/";
+  window.bfConta(p);
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href*="wa.me"], a[href*="api.whatsapp"]');
+    if (a) window.bfConta("clique:whatsapp");
+  }, true);
+})();
+</script>
 </body>
 </html>

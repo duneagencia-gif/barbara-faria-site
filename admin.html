@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F5F2EB">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<title>Painel · Bárbara Faria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+@font-face { font-family: "Gazpacho"; font-style: italic; font-weight: 400; font-display: swap; src: url("fonts/Gazpacho-Italic-Regular.woff2") format("woff2"); }
+:root {
+  --off: #F5F2EB; --brown: #765948; --beige: #E4C7AC; --brown-deep: #4F3A2E; --brown-soft: #8E7464;
+  --line: #DCD1C3; --paper: #FBF9F5; --ok: #4E7A57; --warn: #B5673F;
+  --display: "Gazpacho", "Fraunces", Georgia, serif; --body: "Poppins", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--off); color: var(--brown-deep); font: 400 15px/1.55 var(--body); }
+h1, h2, h3 { font-family: var(--display); font-style: italic; font-weight: 400; margin: 0; color: var(--brown); }
+button, input { font: inherit; }
+[hidden] { display: none !important; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+
+/* Login */
+.login { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; }
+.login form { width: 100%; max-width: 380px; background: var(--paper); border: 1px solid var(--line); border-radius: 22px; padding: 32px 28px; box-shadow: 0 18px 40px -28px rgba(79,58,46,.45); }
+.login img { width: 64px; height: 64px; display: block; margin: 0 auto 14px; }
+.login h1 { text-align: center; font-size: 1.9rem; }
+.login p.sub { text-align: center; color: var(--brown-soft); margin: 4px 0 22px; font-size: .9rem; }
+label { display: block; font-size: .82rem; font-weight: 500; margin: 0 0 6px; color: var(--brown); }
+input[type=email], input[type=password] { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: var(--brown-deep); margin-bottom: 14px; }
+input:focus { outline: 2px solid var(--beige); outline-offset: 1px; border-color: var(--brown-soft); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 0; border-radius: 999px; padding: 10px 18px; cursor: pointer; background: var(--brown); color: var(--off); font-weight: 500; font-size: .88rem; }
+.btn:hover { background: var(--brown-deep); }
+.btn:disabled { opacity: .6; cursor: default; }
+.btn.full { width: 100%; padding: 13px; margin-top: 4px; }
+.btn.ghost { background: transparent; color: var(--brown); border: 1px solid var(--line); }
+.btn.ghost:hover { background: #fff; }
+.btn.ok { background: var(--ok); }
+.btn.ok:hover { background: #3c6045; }
+.err { color: #A23B2A; font-size: .85rem; margin: 10px 0 0; }
+
+/* Painel */
+header.top { background: var(--paper); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 5; }
+header.top .wrap { display: flex; align-items: center; gap: 12px; padding-top: 12px; padding-bottom: 12px; }
+header.top img { width: 40px; height: 40px; }
+header.top .t { flex: 1; min-width: 0; }
+header.top h1 { font-size: 1.35rem; line-height: 1.1; }
+header.top small { color: var(--brown-soft); font-size: .78rem; }
+nav.tabs { display: flex; gap: 6px; margin: 22px 0 18px; flex-wrap: wrap; }
+nav.tabs button { border: 1px solid var(--line); background: transparent; color: var(--brown); border-radius: 999px; padding: 8px 16px; cursor: pointer; font-size: .9rem; }
+nav.tabs button[aria-selected=true] { background: var(--brown); color: var(--off); border-color: var(--brown); }
+nav.tabs .badge { display: inline-block; min-width: 20px; padding: 0 6px; margin-left: 4px; border-radius: 999px; background: var(--warn); color: #fff; font-size: .72rem; line-height: 20px; text-align: center; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--paper); }
+.seg button { border: 0; background: transparent; padding: 7px 14px; cursor: pointer; color: var(--brown); font-size: .85rem; }
+.seg button[aria-pressed=true] { background: var(--beige); color: var(--brown-deep); font-weight: 500; }
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 14px; }
+.card { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
+.kpi .n { font-family: var(--display); font-style: italic; font-size: 2.3rem; line-height: 1; color: var(--brown); }
+.kpi .l { font-size: .8rem; color: var(--brown-soft); margin-top: 6px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+.card h3 { font-size: 1.2rem; margin-bottom: 12px; }
+.chart { display: flex; align-items: flex-end; gap: 3px; height: 160px; padding-top: 8px; }
+.chart .b { flex: 1; background: var(--beige); border-radius: 4px 4px 0 0; min-height: 2px; position: relative; }
+.chart .b:hover { background: var(--brown-soft); }
+.chart .b.today { background: var(--brown); }
+.chart-axis { display: flex; justify-content: space-between; font-size: .72rem; color: var(--brown-soft); margin-top: 6px; }
+.tip { position: fixed; pointer-events: none; background: var(--brown-deep); color: var(--off); font-size: .78rem; padding: 5px 9px; border-radius: 8px; z-index: 20; }
+ul.bars { list-style: none; margin: 0; padding: 0; }
+ul.bars li { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; margin-bottom: 10px; font-size: .88rem; }
+ul.bars li .track { grid-column: 1 / -1; height: 6px; background: var(--off); border-radius: 99px; overflow: hidden; }
+ul.bars li .fill { height: 100%; background: var(--brown-soft); border-radius: 99px; }
+ul.bars li b { font-weight: 500; }
+.empty { color: var(--brown-soft); font-size: .9rem; padding: 6px 0; }
+.note { color: var(--brown-soft); font-size: .8rem; margin: 14px 0 40px; }
+
+.depo { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; margin-bottom: 12px; }
+.depo .meta { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: .82rem; color: var(--brown-soft); margin-bottom: 8px; }
+.depo .meta b { color: var(--brown-deep); font-weight: 500; font-size: .92rem; }
+.depo .stars { color: var(--brown); letter-spacing: 2px; }
+.depo blockquote { margin: 0 0 14px; font-size: .95rem; white-space: pre-wrap; }
+.depo .acts { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill { font-size: .72rem; padding: 2px 10px; border-radius: 99px; background: var(--off); border: 1px solid var(--line); }
+.pill.pend { background: #F6E3D6; border-color: #E9C7AF; color: #8A4A2A; }
+.pill.pub { background: #E2EDE3; border-color: #C3D8C6; color: #3c6045; }
+
+@media (max-width: 760px) {
+  .kpis { grid-template-columns: 1fr 1fr; }
+  .grid2 { grid-template-columns: 1fr; }
+  .kpi .n { font-size: 1.9rem; }
+  header.top small { display: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="login" id="v-login" hidden>
+  <form id="f-login" autocomplete="on">
+    <img src="img/logo-topo.png" alt="">
+    <h1>Painel da Bárbara</h1>
+    <p class="sub">Acesso restrito</p>
+    <label for="l-email">E-mail</label>
+    <input id="l-email" type="email" autocomplete="username" value="adm@barbarafariafono.com.br" required>
+    <label for="l-senha">Chave de acesso</label>
+    <input id="l-senha" type="password" autocomplete="current-password" required>
+    <button class="btn full" id="l-btn" type="submit">Entrar</button>
+    <p class="err" id="l-err" hidden></p>
+  </form>
+</section>
+
+<div id="v-app" hidden>
+  <header class="top">
+    <div class="wrap">
+      <img src="img/logo-topo.png" alt="">
+      <div class="t"><h1>Painel da Bárbara</h1><small>barbarafariafono.com.br</small></div>
+      <a class="btn ghost" href="/" target="_blank" rel="noopener">Ver site</a>
+      <button class="btn ghost" id="sair" type="button">Sair</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="acessos" aria-selected="true">Acessos</button>
+      <button role="tab" data-tab="depoimentos" aria-selected="false">Depoimentos <span class="badge" id="badge-pend" hidden>0</span></button>
+    </nav>
+
+    <section id="t-acessos">
+      <div class="row">
+        <h2>Visitas ao site</h2>
+        <div class="seg" id="periodo">
+          <button data-d="7" aria-pressed="false">7 dias</button>
+          <button data-d="30" aria-pressed="true">30 dias</button>
+          <button data-d="90" aria-pressed="false">90 dias</button>
+        </div>
+      </div>
+      <div class="kpis">
+        <div class="card kpi"><div class="n" id="k-hoje">–</div><div class="l">Visitas hoje</div></div>
+        <div class="card kpi"><div class="n" id="k-visitas">–</div><div class="l">Visitas no período</div></div>
+        <div class="card kpi"><div class="n" id="k-pessoas">–</div><div class="l">Pessoas diferentes</div></div>
+        <div class="card kpi"><div class="n" id="k-whats">–</div><div class="l">Cliques no WhatsApp</div></div>
+      </div>
+      <div class="card">
+        <h3>Visitas por dia</h3>
+        <div class="chart" id="chart"></div>
+        <div class="chart-axis"><span id="ax-ini"></span><span>hoje</span></div>
+      </div>
+      <div class="grid2">
+        <div class="card"><h3>De onde vieram</h3><ul class="bars" id="l-origens"></ul></div>
+        <div class="card"><h3>Páginas mais vistas</h3><ul class="bars" id="l-paginas"></ul></div>
+        <div class="card"><h3>Aparelho</h3><ul class="bars" id="l-disp"></ul></div>
+        <div class="card"><h3>Depoimentos</h3><ul class="bars" id="l-depo"></ul></div>
+      </div>
+      <p class="note">Contagem própria do site, sem cookies de terceiros. Seus acessos neste aparelho não entram na conta depois que você entra no painel.</p>
+    </section>
+
+    <section id="t-depoimentos" hidden>
+      <div class="row">
+        <h2>Depoimentos</h2>
+        <div class="seg" id="filtro">
+          <button data-f="pendentes" aria-pressed="true">Aguardando</button>
+          <button data-f="publicados" aria-pressed="false">Publicados</button>
+          <button data-f="ocultos" aria-pressed="false">Ocultos</button>
+        </div>
+      </div>
+      <div id="depo-list"></div>
+      <p class="note">Depoimentos novos só aparecem no site depois que você aprova.</p>
+    </section>
+  </main>
+</div>
+
+<div class="tip" id="tip" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+const SB_URL = "https://rppgpmddpuvcrbvljfms.supabase.co";
+const SB_KEY = "sb_publishable_wARnoXPMSBWvVkII-bZbtw_GCb4OaE6";
+const sb = supabase.createClient(SB_URL, SB_KEY, { auth: { persistSession: true, storageKey: "bf-admin-auth" } });
+const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)];
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fmt = (n) => Number(n || 0).toLocaleString("pt-BR");
+let dias = 30, filtro = "pendentes", depos = [];
+
+function marcarAparelho() { try { localStorage.setItem("bf_nao_contar", "1"); } catch (e) {} }
+
+async function iniciar() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return mostrarLogin();
+  const { data: ok } = await sb.rpc("bf_is_admin");
+  if (!ok) { await sb.auth.signOut(); return mostrarLogin("Este acesso não tem permissão de administrador."); }
+  marcarAparelho();
+  $("#v-login").hidden = true; $("#v-app").hidden = false;
+  carregarAcessos(); carregarDepos();
+}
+function mostrarLogin(msg) {
+  $("#v-app").hidden = true; $("#v-login").hidden = false;
+  if (msg) { $("#l-err").textContent = msg; $("#l-err").hidden = false; }
+  setTimeout(() => $("#l-senha").focus(), 50);
+}
+$("#f-login").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const btn = $("#l-btn"); btn.disabled = true; btn.textContent = "Entrando…"; $("#l-err").hidden = true;
+  const { error } = await sb.auth.signInWithPassword({ email: $("#l-email").value.trim(), password: $("#l-senha").value });
+  btn.disabled = false; btn.textContent = "Entrar";
+  if (error) { $("#l-err").textContent = "E-mail ou chave de acesso incorretos."; $("#l-err").hidden = false; return; }
+  $("#l-senha").value = ""; iniciar();
+});
+$("#sair").addEventListener("click", async () => { await sb.auth.signOut(); mostrarLogin(); });
+
+/* Abas */
+$$("nav.tabs button").forEach((b) => b.addEventListener("click", () => {
+  $$("nav.tabs button").forEach((x) => x.setAttribute("aria-selected", x === b));
+  $("#t-acessos").hidden = b.dataset.tab !== "acessos";
+  $("#t-depoimentos").hidden = b.dataset.tab !== "depoimentos";
+}));
+$$("#periodo button").forEach((b) => b.addEventListener("click", () => {
+  $$("#periodo button").forEach((x) => x.setAttribute("aria-pressed", x === b)); dias = +b.dataset.d; carregarAcessos();
+}));
+$$("#filtro button").forEach((b) => b.addEventListener("click", () => {
+  $$("#filtro button").forEach((x) => x.setAttribute("aria-pressed", x === b)); filtro = b.dataset.f; renderDepos();
+}));
+
+/* Acessos */
+function barras(el, itens, vazio) {
+  const max = Math.max(1, ...itens.map((i) => i.n));
+  el.innerHTML = itens.length ? itens.map((i) => `<li><span>${esc(i.nome)}</span><b>${fmt(i.n)}</b><span class="track"><span class="fill" style="width:${(i.n / max) * 100}%"></span></span></li>`).join("")
+    : `<li class="empty">${vazio || "Ainda sem dados no período."}</li>`;
+}
+const NOMES_PAG = { "/": "Página inicial", "/links": "Link da bio (Instagram)", "/index": "Página inicial", "/index.html": "Página inicial", "/links.html": "Link da bio (Instagram)" };
+async function carregarAcessos() {
+  const { data, error } = await sb.rpc("bf_resumo_acessos", { dias });
+  if (error || !data) { $("#chart").innerHTML = `<p class="empty">Não consegui carregar os dados agora.</p>`; return; }
+  $("#k-hoje").textContent = fmt(data.hoje);
+  $("#k-visitas").textContent = fmt(data.visitas);
+  $("#k-pessoas").textContent = fmt(data.pessoas);
+  $("#k-whats").textContent = fmt(data.whatsapp);
+  const serie = data.por_dia || [];
+  const max = Math.max(1, ...serie.map((d) => d.n));
+  $("#chart").innerHTML = serie.map((d, i) => `<div class="b${i === serie.length - 1 ? " today" : ""}" style="height:${Math.max(1.5, (d.n / max) * 100)}%" data-t="${esc(new Date(d.dia + "T12:00:00").toLocaleDateString("pt-BR", { day: "2-digit", month: "short" }))}: ${fmt(d.n)} visita${d.n === 1 ? "" : "s"}"></div>`).join("");
+  $("#ax-ini").textContent = serie.length ? new Date(serie[0].dia + "T12:00:00").toLocaleDateString("pt-BR", { day: "2-digit", month: "short" }) : "";
+  barras($("#l-origens"), (data.origens || []).map((o) => ({ nome: o.nome, n: o.n })));
+  barras($("#l-paginas"), (data.paginas || []).map((o) => ({ nome: NOMES_PAG[o.nome] || o.nome, n: o.n })));
+  barras($("#l-disp"), (data.dispositivos || []).map((o) => ({ nome: o.nome[0].toUpperCase() + o.nome.slice(1), n: o.n })));
+}
+const tip = $("#tip");
+$("#chart").addEventListener("mousemove", (e) => {
+  const b = e.target.closest(".b"); if (!b) { tip.hidden = true; return; }
+  tip.textContent = b.dataset.t; tip.hidden = false; tip.style.left = (e.clientX + 12) + "px"; tip.style.top = (e.clientY - 30) + "px";
+});
+$("#chart").addEventListener("mouseleave", () => { tip.hidden = true; });
+
+/* Depoimentos */
+async function carregarDepos() {
+  const { data, error } = await sb.from("bf_depoimentos").select("id,nome,cidade,texto,nota,oculto,aprovado,criado_em").order("criado_em", { ascending: false }).limit(500);
+  depos = error ? [] : data;
+  renderDepos();
+}
+function estado(d) { return d.oculto ? "ocultos" : d.aprovado ? "publicados" : "pendentes"; }
+function renderDepos() {
+  const pend = depos.filter((d) => estado(d) === "pendentes").length;
+  $("#badge-pend").textContent = pend; $("#badge-pend").hidden = !pend;
+  barras($("#l-depo"), [
+    { nome: "Aguardando aprovação", n: pend },
+    { nome: "Publicados", n: depos.filter((d) => estado(d) === "publicados").length },
+    { nome: "Ocultos", n: depos.filter((d) => estado(d) === "ocultos").length },
+  ]);
+  const lista = depos.filter((d) => estado(d) === filtro);
+  const vazio = { pendentes: "Nenhum depoimento aguardando aprovação.", publicados: "Nenhum depoimento publicado ainda.", ocultos: "Nenhum depoimento oculto." }[filtro];
+  $("#depo-list").innerHTML = lista.length ? lista.map((d) => `
+    <article class="depo" data-id="${d.id}">
+      <div class="meta"><b>${esc(d.nome)}</b>${d.cidade ? `<span>${esc(d.cidade)}</span>` : ""}
+        <span>${esc(new Date(d.criado_em).toLocaleString("pt-BR", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }))}</span>
+        ${d.nota ? `<span class="stars" aria-label="Nota ${d.nota} de 5">${"★".repeat(d.nota)}${"☆".repeat(5 - d.nota)}</span>` : ""}
+        <span class="pill ${filtro === "pendentes" ? "pend" : filtro === "publicados" ? "pub" : ""}">${{ pendentes: "Aguardando", publicados: "Publicado", ocultos: "Oculto" }[filtro]}</span></div>
+      <blockquote>${esc(d.texto)}</blockquote>
+      <div class="acts">
+        ${filtro !== "publicados" ? `<button class="btn ok" data-a="aprovar">Aprovar e publicar</button>` : ""}
+        ${filtro !== "ocultos" ? `<button class="btn ghost" data-a="ocultar">${filtro === "pendentes" ? "Não publicar" : "Tirar do site"}</button>` : ""}
+        <button class="btn ghost" data-a="excluir">Excluir</button>
+      </div>
+    </article>`).join("") : `<div class="card empty">${vazio}</div>`;
+}
+$("#depo-list").addEventListener("click", async (e) => {
+  const btn = e.target.closest("button[data-a]"); if (!btn) return;
+  const id = +btn.closest(".depo").dataset.id, a = btn.dataset.a;
+  if (a === "excluir" && !confirm("Excluir este depoimento de vez? Não dá para desfazer.")) return;
+  btn.disabled = true;
+  let r;
+  if (a === "aprovar") r = await sb.from("bf_depoimentos").update({ aprovado: true, oculto: false, aprovado_em: new Date().toISOString() }).eq("id", id);
+  else if (a === "ocultar") r = await sb.from("bf_depoimentos").update({ oculto: true }).eq("id", id);
+  else r = await sb.from("bf_depoimentos").delete().eq("id", id);
+  if (r.error) { alert("Não consegui salvar agora. Tente de novo."); btn.disabled = false; return; }
+  carregarDepos();
+});
+
+sb.auth.onAuthStateChange((ev) => { if (ev === "SIGNED_OUT") mostrarLogin(); });
+iniciar();
+</script>
+</body>
+</html>

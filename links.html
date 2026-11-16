@@ -126,5 +126,29 @@ footer small { font-size: .68rem; letter-spacing: .16em; text-transform: upperca
     <small>CRFa 6-8461</small>
   </footer>
 </main>
+<script>
+/* Contagem de visitas do site (tabela bf_acessos no Supabase; aparece no painel /admin) */
+(function () {
+  var URL = "https://rppgpmddpuvcrbvljfms.supabase.co/rest/v1/bf_acessos", KEY = "sb_publishable_wARnoXPMSBWvVkII-bZbtw_GCb4OaE6";
+  var naoContar = false, vis = null;
+  try { naoContar = localStorage.getItem("bf_nao_contar") === "1"; vis = localStorage.getItem("bf_vis");
+    if (!vis) { vis = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem("bf_vis", vis); } } catch (e) {}
+  if (naoContar || /bot|crawl|spider|preview|lighthouse|headless/i.test(navigator.userAgent)) { window.bfConta = function () {}; return; }
+  var ua = navigator.userAgent, disp = /iPad|Tablet/i.test(ua) ? "tablet" : /Mobi|Android|iPhone/i.test(ua) ? "celular" : "computador";
+  var origem = null;
+  try { var q = new URLSearchParams(location.search).get("utm_source"); if (q) origem = q.slice(0, 60);
+    else if (document.referrer) { var h = new URL(document.referrer).hostname.replace(/^www\./, ""); if (h !== location.hostname.replace(/^www\./, "")) origem = h; } } catch (e) {}
+  window.bfConta = function (pagina) {
+    try { fetch(URL, { method: "POST", keepalive: true, headers: { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json", Prefer: "return=minimal" },
+      body: JSON.stringify({ pagina: String(pagina).slice(0, 120), origem: origem, dispositivo: disp, visitante: vis }) }); } catch (e) {}
+  };
+  var p = location.pathname.replace(/\.html$/, "").replace(/\/index$/, "/") || "/";
+  window.bfConta(p);
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href*="wa.me"], a[href*="api.whatsapp"]');
+    if (a) window.bfConta("clique:whatsapp");
+  }, true);
+})();
+</script>
 </body>
 </html>
